@@ -11,7 +11,12 @@
 </head>
 <body>
   <main>
+<<<<<<< HEAD
     <form>
+=======
+    <form th:action="@{/aaa}" method="post">
+		<input type="hidden" name="_csrf" value="${_csrf.token}"/>
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
       <div class="main-title">
         <h1><img src="../img/logo.svg"></h1>
         <h3>シフト提出、編集</h3>
@@ -25,7 +30,11 @@
     </form>
   </main>
   <div class="shift-hiddens" th:each="month : ${months}">
+<<<<<<< HEAD
     <input class="shift-hidden" name="shift" th:value="month">
+=======
+    <input class="shift-hidden" name="shift" th:value="${month}">
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
   </div>
 </body>
 <script src="../js/memberEditHome.js"></script>

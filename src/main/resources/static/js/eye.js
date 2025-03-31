@@ -25,7 +25,11 @@ function viewChange2() {
 }
 
 
+<<<<<<< HEAD
 function viewChange2() {
+=======
+function viewChange3() {
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
     const pass = document.querySelector(".form3");
     var btnEye = document.getElementById("buttonEye2");
 

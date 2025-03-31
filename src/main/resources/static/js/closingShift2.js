@@ -7,6 +7,10 @@ function setDate(date) {
     currentYear = Number(values[0]);
     currentMonth = Number(values[1]) - 1;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 function renderCalendar() {
     document.getElementById("days").innerHTML = "";
     document.getElementById("day").innerHTML = "";
@@ -167,7 +171,10 @@ function submitForm() {
         })
     })
     
+<<<<<<< HEAD
     console.log(shifts);
+=======
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 	const csrf = document.querySelector("input[name='_csrf']");
 	  if (csrf) {
 	  	const csrfInput = document.createElement("input");
@@ -177,9 +184,27 @@ function submitForm() {
 	  	console.log(csrfInput.value)
 	   	form.appendChild(csrfInput);
 	  }
+<<<<<<< HEAD
     
 
     form.action = "/compeleteClosingShift";
+=======
+	  
+	form.appendChild(shifts);
+	const month = document.createElement("input");
+	const year = document.createElement("input");
+	month.type = "hidden";
+	year.type = "hidden";
+	month.name = "month";
+	year.name = "year";
+	month.value = currentMonth + 1;
+	year.value = currentYear;
+	form.appendChild(year);
+	form.appendChild(month);
+    
+	console.log(form);
+    form.action = "/completeClosingShift";
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
     form.method = "POST";
     document.body.appendChild(form);
     form.submit();

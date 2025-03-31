@@ -1,6 +1,11 @@
 package com.quickshift.entity;
 
 import jakarta.persistence.Entity;
+<<<<<<< HEAD
+=======
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -14,6 +19,10 @@ import lombok.Data;
 public class MemberRequest {
 	
 	@Id
+<<<<<<< HEAD
+=======
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 	private Long id;
 	
 	@ManyToOne

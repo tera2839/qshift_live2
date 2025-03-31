@@ -14,6 +14,10 @@ import com.quickshift.entity.Store;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long>{
 	List<Member> findByStore(Store store);
+<<<<<<< HEAD
+=======
+	Member findByStoreAndName(Store store, String name);
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 	void deleteAllByStore(Store store);
 	
 	@Modifying

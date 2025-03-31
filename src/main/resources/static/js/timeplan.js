@@ -405,17 +405,39 @@ function subForm() {
     });
 
     if(!flag) {
+<<<<<<< HEAD
         const csrf  = document.querySelector("input[name='_csrf']");
         form.prepend(csrf);
+=======
+		const csrf = document.querySelector("input[name='_csrf']");
+		  if (csrf) {
+		    const csrfInput = document.createElement("input");
+		    csrfInput.type = "hidden";
+		    csrfInput.name = "_csrf";
+		    csrfInput.value = csrf.value;
+		    form.appendChild(csrfInput);
+		  }
+       
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
         form.appendChild(values);
         form.appendChild(noneV);
         form.action = "/yearAndMonth";
         form.method = "post";
         form.className = "none";
         document.body.appendChild(form);
+<<<<<<< HEAD
         console.log(form);      
         form.submit(); // フォームを送信
         form.remove();
+=======
+        console.log(form);
+		if(values.children.length !== 0) {
+			form.submit(); // フォームを送信
+			form.remove();
+		} else {
+			error.innerHTML = "一つ以上プランを作ってください";
+		}  
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
     } else {
         return;
     }

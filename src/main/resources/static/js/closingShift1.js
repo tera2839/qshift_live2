@@ -19,6 +19,7 @@ function setShift(h) {
           cell.classList.add("input-cell");
 
           member.forEach(m => {
+<<<<<<< HEAD
             const op = document.createElement("option");
             op.value = m.value;
             op.innerHTML = m.value;
@@ -28,6 +29,20 @@ function setShift(h) {
             }
             cell.appendChild(op);
           })
+=======
+			if(m.value !== "") {
+				const op = document.createElement("option");
+				op.value = m.value;
+				op.innerHTML = m.value;
+				if(name === m.value) {
+					op.selected = true;
+				  	op.disabled = true;
+				}
+				cell.appendChild(op);
+			}
+          })
+		  
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
           const op = document.createElement("option");
           op.value = "";
           op.innerHTML = "選択無し";
@@ -42,10 +57,19 @@ function setShift(h) {
           const defalut = document.createElement("select");
           defalut.className = "input-cell def";
           member.forEach(m => {
+<<<<<<< HEAD
             const op = document.createElement("option");
             op.value = m.value;
             op.innerHTML = m.value;
             defalut.appendChild(op);
+=======
+			if(m.value !== "") {
+				const op = document.createElement("option");
+				op.value = m.value;
+				op.innerHTML = m.value;
+				defalut.appendChild(op);
+			} 
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
           })
           const opt = document.createElement("option");
           opt.value = "";

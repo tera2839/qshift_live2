@@ -8,7 +8,7 @@ function setShift(h) {
   const shiftdiv = document.createElement("div");
   const shift = document.createElement("h4");
 
-  shift.innerHTML = `${year}年${month}月シフト提出`;
+  shift.innerHTML = `${year}年${month}月シフト`;
   shiftdiv.className = "shift";
   shiftdiv.appendChild(shift);
 
@@ -29,30 +29,22 @@ function setShift(h) {
     input2.type = "hidden";
     form.appendChild(input1);
     form.appendChild(input2);
-<<<<<<< HEAD
+	
+	const csrf = document.querySelector("input[name='_csrf']");
+		  if (csrf) {
+		  	const csrfInput = document.createElement("input");
+		    csrfInput.type = "hidden";
+		   	csrfInput.name = "_csrf";
+		   	csrfInput.value = csrf.value;
+		  	console.log(csrfInput.value)
+		   	form.appendChild(csrfInput);
+		  }
 
-    form.action = "/memberEdit";
+    form.action = "/editShift";
     form.method = "POST";
     document.body.appendChild(form);
     form.submit();
     
-=======
-	
-	const csrf = document.querySelector("input[name='_csrf']");
-	if (csrf) {
-	   const csrfInput = document.createElement("input");
-	   csrfInput.type = "hidden";
-	   csrfInput.name = "_csrf";
-	   csrfInput.value = csrf.value;
-	   form.appendChild(csrfInput);
-	}
-
-    form.action = "/memberEdit";
-    form.method = "post";
-    document.body.appendChild(form);
-    form.submit();
-    form.remove();
->>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
   })
   shifts.appendChild(shiftdiv);
 }

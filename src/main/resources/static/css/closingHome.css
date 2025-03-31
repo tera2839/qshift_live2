@@ -108,7 +108,11 @@ body{
 }
 
 .back:hover {
+<<<<<<< HEAD
     margin-top: 4px;
+=======
+    margin-top: 23px;
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
     box-shadow:  0 4px lightcyan;
     background-color: #f8a0d9;
 }

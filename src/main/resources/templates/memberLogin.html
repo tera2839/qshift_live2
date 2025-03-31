@@ -11,7 +11,12 @@
 </head>
 <body>
   <main>
+<<<<<<< HEAD
     <form>
+=======
+    <form th:action="@{/completeMemberLogin}" method="post">
+      <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
       <div class="main-title">
         <h1><img src="../img/logo.svg"></h1>
         <h3 class="store-name" th:text="${storeName}"></h3>
@@ -20,7 +25,11 @@
       </div>
       <div class="login">
         <p class="error"></p>
+<<<<<<< HEAD
         <input type="text" name="pass" size="15">
+=======
+        <input type="password" name="pass" size="15">
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
       </div>
 	  <h4><span class="error" th:if="${error}" th:text="${error}"></span></h4>
       <div class="footer">
@@ -28,7 +37,11 @@
       </div>
     </form>
   </main>
+<<<<<<< HEAD
   <input type="hidden" class="name-hidden" value="本店">
+=======
+  <input type="hidden" class="name-hidden" th:value="${name}">
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 </body>
 <script src="../js/memberLogin.js"></script>
 </html>

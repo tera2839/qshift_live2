@@ -490,14 +490,51 @@ public class AdminController {
 	}
 	
 	@PostMapping("/completeClosingShift")
+<<<<<<< HEAD
 	public String completeClosinfShift() {
 		
+=======
+	public String completeClosinfShift(
+			@RequestParam("shift") String[] shifts,
+			@RequestParam("year") String year,
+			@RequestParam("month") String month
+			) {
+		
+		for(String shift : shifts) {
+			
+			String[] strs = shift.split(":");
+			Long planId = Long.parseLong(strs[0]);
+			String date = strs[1];
+			String name = strs[2];
+			
+			if(month.length() == 1) {
+				month = "0" + month;
+			}
+			if(date.length() == 1) {
+				date = "0" + date;
+			}
+			String calendarId = year + month + date;
+			
+			Shift s = new Shift();
+			s.setStore(aSession.getStore());
+			s.setTimeplan(aService.findByTimeplanId(planId));
+			s.setMember(aService.findMemberByStoreAndName(aSession.getStore(), name));
+			s.setCalendar(aService.findCalendarById(Long.parseLong(calendarId)));
+			
+			aService.saveShift(s);
+		}
+
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 		return "redirect:/resultClosingShift";
 	}
 	
 	@GetMapping("/resultClosingShift")
 	public String showResultClosingShift() {
 		
+<<<<<<< HEAD
+=======
+		
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 		return "resultClosingShift";
 	}
 	
@@ -540,6 +577,12 @@ public class AdminController {
 		model.addAttribute("year", year);
 		model.addAttribute("month", month);
 		
+<<<<<<< HEAD
+=======
+		aSession.setYear(Integer.parseInt(year));
+		aSession.setMonth(Integer.parseInt(month));
+		
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 		return "editAdminRequest";
 	}
 	
@@ -562,6 +605,7 @@ public class AdminController {
 			aService.updateAdminRequest(num, calendarId, planId);
 		}
 		
+<<<<<<< HEAD
 		for(String request : newRequests) {
 			
 			String shift = shifts[i];
@@ -574,6 +618,22 @@ public class AdminController {
 			request.setTimeplan(aService.findByTimeplanId(plan));
 			request.setNum(num);
 			request.setStore(aSession.getStore());
+=======
+		for(String re : newRequests) {
+			
+			String shift = re;
+			String[] req = shift.split(":");
+			String date = req[0];
+			Long planId = Long.parseLong(req[1]);
+			int num = Integer.parseInt(req[2].substring(0, req[2].length() - 1));
+			
+			AdminRequest request = new AdminRequest();
+			
+			request.setTimeplan(aService.findByTimeplanId(planId));
+			request.setNum(num);
+			request.setStore(aSession.getStore());
+			
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 			String month = aSession.getMonth() + "";
 			if(month.length() == 1) {
 				month = "0" + month;
@@ -599,4 +659,89 @@ public class AdminController {
 		
 		return "resultEdit";
 	}
+<<<<<<< HEAD
+=======
+	
+	@PostMapping("/editShiftHome")
+	public String editShiftHome(
+			Model model
+			) {
+		
+		List<Shift> shifts = aService.findShiftByStore(aSession.getStore());
+		List<String> months = new ArrayList<String>();
+		
+		for(Shift shift : shifts) {
+			
+			String str = shift.getCalendar().getCyear() + ":" + shift.getCalendar().getCmonth();
+			
+			if(!months.contains(str)) {
+				months.add(str);
+			}
+		}
+		
+		model.addAttribute("months", months);
+		
+		return "editShiftHome";
+	}
+	
+	@PostMapping("editShift")
+	public String editShift(
+			@RequestParam("year") String reqYear,
+			@RequestParam("month") String reqMonth,
+			Model model
+			) {
+		
+		List<Timeplan> timeplans = aService.findTimeplanByStore(aSession.getStore());
+		List<Member> members = aService.findMemberByStore(aSession.getStore());
+		List<Shift> shiftList = aService.findShiftByStore(aSession.getStore());
+		List<String> shifts = new ArrayList<String>();
+		for(Shift shift : shiftList) {
+			
+			String year = shift.getCalendar().getCyear() + "";
+			String month = shift.getCalendar().getCmonth() + "";
+			
+			if(year.equals(reqYear) && month.equals(reqMonth)) {
+				
+				String date = shift.getCalendar().getCdate() + "";
+				String planId = shift.getTimeplan().getId() + "";
+				String name = shift.getMember().getName();
+				
+				String str = date + ":" + planId + ":" + name;
+				shifts.add(str);
+			}
+		}
+		List<AdminRequest> requestList = aService.findAdminRequestByStore(aSession.getStore());
+		List<String> requests = new ArrayList<String>();
+		for(AdminRequest request : requestList) {
+			
+			String year = request.getCalendar().getCyear() + "";
+			String month = request.getCalendar().getCmonth() + "";
+			
+			if(year.equals(reqYear) && month.equals(reqMonth)) {
+				
+				String date = request.getCalendar().getCdate() + "";
+				String planId = request.getTimeplan().getId() + "";
+				String num = request.getNum() + "";
+				
+				String str = date + ":" + planId + ":" + num;
+				requests.add(str);
+			}
+		}
+		String dates = reqYear + ":" + reqMonth;
+		
+		model.addAttribute("timeplans", timeplans);
+		model.addAttribute("members", members);
+		model.addAttribute("shifts", shifts);
+		model.addAttribute("requests", requests);
+		model.addAttribute("dates", dates);
+		
+		return "editShift";
+	}
+	
+	@PostMapping("completeEditShift")
+	public String completeEditShift() {
+		
+		return "redirect:/resultEdit";
+	}
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 }

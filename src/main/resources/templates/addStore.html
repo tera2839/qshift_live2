@@ -37,8 +37,13 @@
                     <span id="buttonEye1" class="fa fa-eye-slash" onclick="viewChange1()"></span>
                 </div>
                 <div class="pass-area">
+<<<<<<< HEAD
                     <input type="password"  class="form3" placeholder="確認用" th:field="*{pass2}">
                     <span id="buttonEye2" class="fa fa-eye-slash" onclick="viewChange2()"></span>
+=======
+                    <input type="password"  class="form3 " placeholder="確認用" th:field="*{pass2}">
+                    <span id="buttonEye2" class="fa fa-eye-slash" onclick="viewChange3()"></span>
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
                 </div>
                 <h3 class="erm" th:if="${#fields.hasErrors('pass1')}" th:text="${#fields.errors('pass1')[0]}"></h3>
             </div>

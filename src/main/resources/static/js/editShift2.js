@@ -1,9 +1,11 @@
+const date = new Date();
 let currentMonth;
 let currentYear;
 
-function setDate(year,month) {
-    currentYear = Number(year);
-    currentMonth = Number(month) - 1;
+function setDate(date) {
+    const values = date.value.split(":");
+    currentYear = Number(values[0]);
+    currentMonth = Number(values[1]) - 1;
 }
 
 function renderCalendar() {
@@ -17,7 +19,6 @@ function renderCalendar() {
 function createMonthCalendar(monthYear) {
     const first = new Date(monthYear.getFullYear(), monthYear.getMonth(), 1);
     const last = new Date(monthYear.getFullYear(), monthYear.getMonth() + 1, 0);
-    
     const firstDay = first.getDate();
     const lastDay = last.getDate();
 
@@ -25,7 +26,6 @@ function createMonthCalendar(monthYear) {
     console.log(lastDay);
 
     const days = ["日", "月", "火", "水", "木", "金", "土"];
-    
     const startDay = first.getDay(); 
 
     const htmldays = document.getElementById("days");
@@ -51,15 +51,15 @@ function createMonthCalendar(monthYear) {
         const d = document.createElement("td");
         d.innerHTML = i;
         if(i % 2 === 0) {
-            d.className = "odd";
+            d.className = "date odd";
         } else {
-            d.className = "even";
+            d.className = "date even";
         }
         htmlday.appendChild(d);
     }
 }
 
-function addTd(pid) {
+function addTd() {
     const trlen = document.querySelector(".time").children;
     const tr = document.createElement("tr");
     const time = document.querySelector(".time");
@@ -69,33 +69,40 @@ function addTd(pid) {
     const last = new Date(monthYear.getFullYear(), monthYear.getMonth() + 1, 0);
     const firstDay = first.getDate();
     const lastDay = last.getDate();
+
     
     for(let i = 0; i < lastDay; i++) {
 
         const td = document.createElement("td");
-        const input = document.createElement("input");
+        const input = document.createElement("select");
         td.className = "time-cell";
         td.dataset.id = i + 1;
 
-        input.type = "text";
-        input.className = "input-cell";
-        input.placeholder = "0人";
-        input.setAttribute("value","");
+        input.className = "input-cell def";
+        const op = document.createElement("option");
+        op.value = "";
+        op.innerHTML = "選択無し";
+        input.prepend(op);
+        
+        const member = document.querySelectorAll(".member-hidden");
+        member.forEach(m => {
+			if(m.value !== "") {
+				const o = document.createElement("option");
+				o.setAttribute("value",m.value);
+				o.innerHTML = m.value;
+				input.appendChild(o);
+			}
+        })
 
         td.appendChild(input);
 
         input.addEventListener("change", function() {
-            if(input.value.length === 0) {
-                input.value = "";
-                input.classList.toggle("in1");
-            } else {
-                input.value = input.value.replace(/人$/, "") + "人";
-                input.classList.toggle("in1");
-            }
-        })
-
+            selectlogic(input,td);
+        });
+        
+        
         tr.className = "cells";
-        tr.dataset.id = pid;
+        tr.dataset.id = trlen.length + 1;
         tr.appendChild(td);
 
     }
@@ -138,107 +145,112 @@ function createPlan(t,f,n,i) {
 }
 
 function submitForm() {
-    const plans = document.querySelectorAll(".plan");
-    const cells = document.querySelectorAll(".cells");
     const form = document.createElement("form");
+    form.className = "none";
+    const plans = document.querySelectorAll(".cells");
+    const shifts = document.createElement("div");
 
     plans.forEach(p => {
-        const planId = p.dataset.id;
-
-        cells.forEach(cs => {
-            const cellId = cs.dataset.id;
-
-            if (planId === cellId) { 
-                const cellElements = cs.querySelectorAll(".time-cell");
-
-                cellElements.forEach(c => {
-                    const input = c.querySelector("input");
-                    if (input && input.value.length !== 0) {
-                        const hiddenInput = document.createElement("input");
-                        hiddenInput.type = "hidden";
-<<<<<<< HEAD
-                        hiddenInput.name = "newShift";
-=======
-                        hiddenInput.name = "newRequest";
->>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
-						if(input.classList.contains("be")) {
-							hiddenInput.name = "requestShift";
-						}
-						//日にち、プラン,人数
-                        hiddenInput.value = `${c.dataset.id}:${cellId}:${input.value}`;
-        
-                        form.appendChild(hiddenInput);
+        const originalShifts = p.querySelectorAll(".time-cell");
+        originalShifts.forEach(o => {
+            const select = o.querySelectorAll("select");
+            if(select.length >= 2) {
+                select.forEach(s => {
+                    if(s.value !== "") {
+                        const input = document.createElement("input");
+                        input.type = "hidden";
+                        input.name = "shift";
+                        input.value = `${p.dataset.id}:${o.dataset.id}:${s.value}`;
+                        shifts.appendChild(input);
                     }
-                });
+                })
             }
-        });
-    });
-
-	const csrf = document.querySelector("input[name='_csrf']");
-		if (csrf) {
-			const csrfInput = document.createElement("input");
-			csrfInput.type = "hidden";
-			csrfInput.name = "_csrf";
-			csrfInput.value = csrf.value;
-			console.log(csrfInput.value)
-			form.appendChild(csrfInput);
-		}
-	console.log(form);
-    
-<<<<<<< HEAD
-//    form.action = "/completeEditAdminRequest";
-//    form.method = "POST"; 
-//    form.className = "none";
-//    document.body.appendChild(form); 
-//    form.submit();
-//	form.remove();
-=======
-    form.action = "/completeEditAdminRequest";
-    form.method = "POST"; 
-    form.className = "none";
-    document.body.appendChild(form); 
-    form.submit();
-	form.remove();
->>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
-}
-
-function setPeople(n) {
-    const value = n.split(":");
-    const planid = value[1];
-    const date = value[0];
-    const num = value[2];
-
-    const timePlans = document.querySelectorAll(".cells");
-    timePlans.forEach(t => {
-        if(t.dataset.id === planid) {
-            const dates = t.querySelectorAll(".time-cell");
-            dates.forEach(d => {
-                if(d.dataset.id === date) {
-                    d.classList.add("odd");
-                    const input = d.querySelector("input");
-                    input.setAttribute("value",`${num}人`);
-					input.classList.add("be");
-                }
-            })
-        }
-    })
-
-}
-
-const load = () => {
-    const inputs = document.querySelectorAll("input");
-    inputs.forEach(i => {
-        i.addEventListener("input", function() {
-            this.value = this.value.replace(/\D/g, '');
         })
     })
+	
+	const csrf = document.querySelector("input[name='_csrf']");
+	if (csrf) {
+	  const csrfInput = document.createElement("input");
+	  csrfInput.type = "hidden";
+	  csrfInput.name = "_csrf";
+	  csrfInput.value = csrf.value;
+	  form.appendChild(csrfInput);
+	}
+    
+    console.log(shifts);
+    
+    form.action = "/completeEditShift";
+    form.method = "POST";
+    document.body.appendChild(form);
+    form.submit();
 }
 
+function selectlogic(cell,d) {
+    console.log("ssss");
+    
+    const member = document.querySelectorAll(".member-hidden");
+    if (cell.value === "") {
+      const nextElem = cell.nextElementSibling;
+      
+      if (nextElem && nextElem.classList.contains("def")) {
+          cell.classList.add("def");
+          nextElem.remove();
+      }
+    } else {
+      cell.classList.remove("def");
+      const i = document.createElement("select");
+      i.className = "input-cell def";
+      member.forEach(m => {
+        const op = document.createElement("option");
+        op.value = m.value;
+        op.innerHTML = m.value;
+        i.appendChild(op);
+      })
+      const opt = document.createElement("option");
+      opt.value = "";
+      opt.innerHTML = "選択無し";
+      opt.selected = true;
+      i.prepend(opt);
+      i.addEventListener("change", function() {selectlogic(i,d)});
+      d.appendChild(i);
+    }
+  }
+  
+  function defaultLogic(def,d) {
+    const member = document.querySelectorAll(".member-hidden");
+    if (def.value === "") {
+      const nextElem = def.nextElementSibling;
+      
+      if (nextElem && nextElem.classList.contains("def")) {
+          console.log("削除対象の要素:", nextElem); 
+          def.value = "";
+          def.classList.add("def");
+          nextElem.remove();
+      }
+    } else {
+      def.classList.remove("def");
+      const i = document.createElement("select");
+      i.className = "input-cell def";
+      member.forEach(m => {
+        const op = document.createElement("option");
+        op.value = m.value;
+        op.innerHTML = m.value;
+        i.appendChild(op);
+      })
+      const option = document.createElement("option");
+      option.value = "";
+      option.innerHTML = "選択無し";
+      option.selected = true;
+      i.prepend(option);
+      i.addEventListener("change", function() {selectlogic(i,d)});
+      d.appendChild(i);
+    }
+  }
+
+
 document.addEventListener("DOMContentLoaded",function() {
-    const year = document.querySelector(".year-hidden");
-    const month = document.querySelector(".month-hidden");
-    setDate(year.value,month.value);
-	
+	const dates = document.querySelector(".dates");
+	setDate(dates);
     renderCalendar();
     const viewP = document.createElement("p");
     const viewYear = document.getElementById("view-year");
@@ -251,23 +263,15 @@ document.addEventListener("DOMContentLoaded",function() {
         const to = plan.querySelector(".to");
         const from = plan.querySelector(".from");
         const name = plan.querySelector(".plan-name");
-		if(to.value !== "" && from.value !== "" && name.value !== "") {
+		if(name.value !== "" && from.value !== "" && to.value !== "") {
 			createPlan(to.value, from.value, name.value, plan.id);
 		}
     });
 
     const plans = document.querySelectorAll(".plan");
-	
-	plans.forEach(p => {
-		addTd(p.dataset.id);
-	})
-
-
-    const nums = document.querySelectorAll(".select-hidden");
-    nums.forEach(n => {
-        setPeople(n.value);
-    })
-    
+    for(let i = 0; i < plans.length; i++) {
+        addTd();
+    }
 
 
     const scrollParent = document.querySelector(".calendar-container");
@@ -292,6 +296,5 @@ document.addEventListener("DOMContentLoaded",function() {
         syncScroll(scrollChild, scrollParent);
     })
 
-    load();
 })
 

@@ -29,6 +29,18 @@ function setShift(h) {
     input2.type = "hidden";
     form.appendChild(input1);
     form.appendChild(input2);
+<<<<<<< HEAD
+=======
+	
+	const csrf = document.querySelector("input[name='_csrf']");
+	if(csrf) {
+		const hiddenInput = document.createElement("input");
+		hiddenInput.type = "hidden";
+		hiddenInput.name = "_csrf";
+		hiddenInput.value = csrf.value;
+		form.appendChild(hiddenInput);
+	}
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 
     form.action = "/checkShift";
     form.method = "POST";

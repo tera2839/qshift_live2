@@ -122,6 +122,14 @@ public class AdminService {
 		return memberRep.findById(id).get();
 	}
 	
+<<<<<<< HEAD
+=======
+	public Member findMemberByStoreAndName(Store store, String name) {
+		
+		return memberRep.findByStoreAndName(store, name);
+	}
+	
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 	@Transactional
 	public void updateMemberName(Long id, String name) {
 		
@@ -133,6 +141,10 @@ public class AdminService {
 		
 		memberRep.deleteAllByStore(store);
 	}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 	@Transactional
 	public void saveMember(Member member) {
 		
@@ -189,11 +201,28 @@ public class AdminService {
 	/*--------------------------------------------------------
 	  MemberRequestテーブル操作
 	 --------------------------------------------------------*/
+<<<<<<< HEAD
+=======
+	public List<MemberRequest> findMemberRequestByMember(Member member){
+		
+		return memberRequestRep.findByMember(member);
+	}
+	
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 	@Transactional
 	public void saveMemberRequest(MemberRequest request) {
 		
 		memberRequestRep.save(request);
 	}
+<<<<<<< HEAD
+=======
+	
+	@Transactional
+	public void deleteMemberRequest(MemberRequest request) {
+		
+		memberRequestRep.delete(request);
+	}
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 	/*--------------------------------------------------------
 	  Shiftテーブル操作
 	 --------------------------------------------------------*/
@@ -302,6 +331,15 @@ public class AdminService {
 		}
 	}
 	
+<<<<<<< HEAD
+=======
+	@Transactional
+	public void saveShift(Shift shift) {
+		
+		shiftRep.save(shift);
+	}
+	
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 	/*--------------------------------------------------------
 	  パスワード操作
 	 --------------------------------------------------------*/
@@ -310,6 +348,13 @@ public class AdminService {
       return passwordEncoder.encode(pass);
     }
 	
+<<<<<<< HEAD
+=======
+	public boolean matches(String pass, String storePass) {
+		return passwordEncoder.matches(pass, storePass);
+	}
+	
+>>>>>>> e2089f548ec708cec6e496c0fa3c3e1deda457f7
 	/*--------------------------------------------------------
 	  Calendarテーブル操作
 	 --------------------------------------------------------*/
