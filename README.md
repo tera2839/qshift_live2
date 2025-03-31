@@ -1,1 +1,0 @@
-"# qshift_live" 
