@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QUICK SHIFT</title>
+  <link rel="stylesheet" href="../css/memberSelectName.css">
+  <link rel="stylesheet" href="../css/ress.css">
+  <link rel="stylesheet" href="../css/media.css">
+  <link rel="stylesheet" href="../css/media_NoneHeader.css">
+</head>
+<body>
+  <main>
+    <form>
+      <div class="main-title">
+        <h1><img src="../img/logo.svg"></h1>
+        <h3>名前選択</h3>
+        <h4>自身の名前を選択してください</h4>
+      </div>
+      <div class="select">
+        <p class="error"></p>
+        <select class="member" th:each="member : ${members}">
+          <option name="name" th:value="${member.getName()}" th:data-id="${member.getId()}"></option>
+        </select>
+      </div>
+      <div class="footer">
+        <a onclick="select()">選択</a>
+      </div>
+    </form>
+  </main>
+</body>
+<script src="../js/memberSelectName.js"></script>
+</html>

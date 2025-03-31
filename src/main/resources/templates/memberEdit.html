@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QUICK SHIFT</title>
+  <link rel="stylesheet" href="../css/memberEdit.css">
+  <link rel="stylesheet" href="../css/calendar.css">
+  <link rel="stylesheet" href="../css/ress.css">
+  <link rel="stylesheet" href="../css/media.css">
+  <link rel="stylesheet" href="../css/media_NoneHeader.css">
+</head>
+<body>
+  <main>
+    <form>
+      <div class="main-title">
+        <h3>シフト提出</h3>
+      </div>
+      <div class="main-calendar">
+        <div class="menber">
+            <span id="view-year" class="block up-calendar"></span>
+            <div class="menbers">
+            </div>
+        </div>
+        <div class="calendar-container">
+            <table id="calendar" class="up-calendar">
+                <tr id="days"></tr>
+                <tr id="day"></tr>
+            </table>
+            <table class="time">
+            </table>
+        </div> 
+      </div>
+      <div class="addbutton">
+        <a onclick="delShift()">枠の削除</a>
+        <a onclick="addShift()">枠の追加</a>
+      </div>
+      <div class="footer">
+        <a onclick="javascript:history.back()">戻る</a>
+        <a onclick="submitForm()">提出</a>
+      </div>
+    </form>
+  </main>
+
+  <div class="hiddens">
+    <div class="member-hiddens">
+      <input type="hidden" value="田中" class="member-hidden">
+    </div>
+    <div class="shift-hiddens">
+      <input type="hidden" class="shift-hidden" value="1:1">
+      <input type="hidden" class="shift-hidden" value="1:2">
+      <input type="hidden" class="shift-hidden" value="3:1">
+      <input type="hidden" class="shift-hidden" value="2:2">
+      <input type="hidden" class="shift-hidden" value="4:3">
+      <input type="hidden" class="shift-hidden" value="6:1">
+    </div>
+    <div class="timeplan-hiddens">
+      <input type="hidden" class="timeplan-hidden" value="1000:1200" data-id="1">
+      <input type="hidden" class="timeplan-hidden" value="1200:1600" data-id="2">
+      <input type="hidden" class="timeplan-hidden" value="1600:1900" data-id="3">
+      <input type="hidden" class="timeplan-hidden" value="2000:0000" data-id="4">
+      <input type="hidden" class="timeplan-hidden" value="2100:0600" data-id="5">
+    </div>
+    <div class="date-hiddens">
+      <input type="hidden" class="date-hidden" value="2025:4">
+    </div>
+  </div>
+</body>
+<script src="../js/memberEdit.js"></script>
+</html>
